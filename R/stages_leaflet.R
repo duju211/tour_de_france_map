@@ -5,5 +5,5 @@ stages_leaflet <- function(sf_stages) {
     st_zm() |>
     leaflet() |>
     addPolylines(color = ~factpal(gpx_path)) |>
-    addProviderTiles(providers$OpenStreetMap)
+    addProviderTiles("Stadia.AlidadeSmooth")
 }
