@@ -17,5 +17,6 @@ overview_stages <- function(edition_url) {
     add_column(gpx_url = gpx_paths)
   
   df_stage |>
-    verify(is_uniq(gpx_url))
+    verify(is_uniq(gpx_url)) |>
+    select(-c(gpx))
 }
