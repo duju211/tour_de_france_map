@@ -25,6 +25,7 @@ server <- function(input, output, session) {
   selected <- reactive(getReactableState("stage_tbl", "selected"))
   
   selected_stages <- reactive({
+    req(!is.null(selected()))
     slice(sf_stages, selected())
   })
   
