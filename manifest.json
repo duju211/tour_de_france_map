@@ -3713,6 +3713,32 @@
         "Built": "R 4.4.1; ; 2024-08-01 23:50:46 UTC; windows"
       }
     },
+    "shinycssloaders": {
+      "Source": "CRAN",
+      "Repository": "https://cran.rstudio.com",
+      "description": {
+        "Package": "shinycssloaders",
+        "Title": "Add Loading Animations to a 'shiny' Output While It's\nRecalculating",
+        "Version": "1.1.0",
+        "Authors@R": "c(\n    person(\"Dean\",\"Attali\",email=\"daattali@gmail.com\",role=c(\"aut\",\"cre\"),\n        comment = c(\"Maintainer/developer of shinycssloaders since 2019\", ORCID=\"0000-0002-5645-3493\")),\n    person(\"Andras\",\"Sali\",email=\"andras.sali@alphacruncher.hu\",role=c(\"aut\"),comment=\"Original creator of shinycssloaders package\"),\n    person(\"Luke\",\"Hass\",role=c(\"ctb\",\"cph\"),comment=\"Author of included CSS loader code\")\n    )",
+        "Description": "When a 'Shiny' output (such as a plot, table, map, etc.) is recalculating, it remains \n    visible but gets greyed out. Using 'shinycssloaders', you can add a loading animation (\"spinner\")\n    to outputs instead. By wrapping a 'Shiny' output in 'withSpinner()', a spinner will automatically\n    appear while the output is recalculating. You can also manually show and hide the spinner, or add\n    a full-page spinner to cover the entire page.\n    See the demo online at <https://daattali.com/shiny/shinycssloaders-demo/>.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://github.com/daattali/shinycssloaders,\nhttps://daattali.com/shiny/shinycssloaders-demo/",
+        "BugReports": "https://github.com/daattali/shinycssloaders/issues",
+        "Depends": "R (>= 3.1)",
+        "Imports": "digest, glue, grDevices, htmltools (>= 0.3.5), shiny",
+        "Suggests": "knitr, shinydisconnect, shinyjs",
+        "RoxygenNote": "7.2.3",
+        "Encoding": "UTF-8",
+        "NeedsCompilation": "no",
+        "Packaged": "2024-07-30 18:52:48 UTC; Dean",
+        "Author": "Dean Attali [aut, cre] (Maintainer/developer of shinycssloaders since\n    2019, <https://orcid.org/0000-0002-5645-3493>),\n  Andras Sali [aut] (Original creator of shinycssloaders package),\n  Luke Hass [ctb, cph] (Author of included CSS loader code)",
+        "Maintainer": "Dean Attali <daattali@gmail.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2024-07-30 22:30:02 UTC",
+        "Built": "R 4.4.1; ; 2024-08-28 02:26:03 UTC; windows"
+      }
+    },
     "snakecase": {
       "Source": "CRAN",
       "Repository": "https://cran.rstudio.com",
@@ -4695,16 +4721,16 @@
   },
   "files": {
     "_targets.R": {
-      "checksum": "fbd7ff2f1fcfcef17491d9152f9ad19e"
+      "checksum": "5af75b9bfd7cd8eee96697fbeab7d0c8"
     },
     "_targets/meta/meta": {
-      "checksum": "99ecf9bc025d7e19c4c1d92bc23b8cfe"
+      "checksum": "83e2200935532a355936ee9f0666ef2c"
     },
     "_targets/meta/process": {
-      "checksum": "946107090d1a2400b4bc8a79c6902bf0"
+      "checksum": "69e760a696e363bda472553ff5feee7e"
     },
     "_targets/meta/progress": {
-      "checksum": "e061674c2587a4002d8aae07b0dc53a0"
+      "checksum": "1c670f65889829ae71d7fe652f78f145"
     },
     "_targets/objects/df_overview_stages_2022": {
       "checksum": "5553221578cc56e79bbf6c53fc16c8f0"
@@ -5148,7 +5174,7 @@
       "checksum": "9d3657ef9dce849985b714da83a0df32"
     },
     "_targets/objects/leaflet_stages": {
-      "checksum": "5448f4824917550c65c0ccdb9fbbdcd1"
+      "checksum": "8785d5e39874d95ebb72cfab0272d334"
     },
     "_targets/objects/leaflet_stages_2022": {
       "checksum": "35d91fbcf30f330ebb46b4c2c8099728"
@@ -5178,13 +5204,13 @@
       "checksum": "ea3ecde8f8d3b6b1a4aa49f59f55f3c1"
     },
     "_targets/objects/tbl_tdf_overview": {
-      "checksum": "a4ef3ed15833e4a2189f6471046f4d6d"
+      "checksum": "c03bd602d51174dfa20b6c88a35f3654"
     },
     "app.R": {
-      "checksum": "553988de9198abf7b09a1e98e0fac8a3"
+      "checksum": "9254f83e82026658b37bd4e9efc0397e"
     },
     "libraries.R": {
-      "checksum": "35fc6c796905be0f2879e5e851379ad9"
+      "checksum": "59c236a5ef65b86b4cac19e0957b00e6"
     },
     "main.R": {
       "checksum": "1716e577a4b93f49313aed456e817d6a"
@@ -5193,7 +5219,7 @@
       "checksum": "4dac3ab3c5743bdb40834d2ece9cbd77"
     },
     "R/stages_leaflet.R": {
-      "checksum": "ea73c5a908023f1f63093b9cae867897"
+      "checksum": "65d4590e18ecbe60c1b5acbd1c9d9fb2"
     },
     "R/stages_sf.R": {
       "checksum": "86599358af36e853f355cfd51f01d37b"
@@ -5202,7 +5228,7 @@
       "checksum": "7f8e9945b42f03583b31ad9106cd69e1"
     },
     "R/tdf_overview_tbl.R": {
-      "checksum": "72a8178c0e2fe40087fde593a2f4cf48"
+      "checksum": "c57b705a16eff2ccd3406f3aed0200d7"
     },
     "R/track_points.R": {
       "checksum": "d3b4188a84db26ff038ac000ac1341e7"
