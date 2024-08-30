@@ -13,7 +13,7 @@ ui <- page_sidebar(
   ),
   card(
     card_header("Map"),
-    leafletOutput("stage_map")
+    withSpinner(leafletOutput("stage_map"))
   ),
   card(
     card_header("Table"),

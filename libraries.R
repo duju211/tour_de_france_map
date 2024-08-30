@@ -1,3 +1,4 @@
+library(shinycssloaders)
 library(tarchetypes)
 library(conflicted)
 library(reactable)
