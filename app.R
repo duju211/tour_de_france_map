@@ -8,7 +8,7 @@ ui <- page_sidebar(
     title = "Map Controls",
     varSelectInput(
       "col_var", "Select Color Variable",
-      select(sf_stages, where(is.character))
+      select(sf_stages, where(is.character)), selected = "edition"
     )
   ),
   card(
@@ -29,7 +29,7 @@ server <- function(input, output, session) {
   })
   
   output$stage_map <- renderLeaflet({
-    stages_leaflet(selected_stages())
+    stages_leaflet(selected_stages(), as.character(input$col_var))
   })
   
   output$stage_tbl <- renderReactable({

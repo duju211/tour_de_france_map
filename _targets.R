@@ -37,5 +37,5 @@ list(
       write_rds(sf_tdf_stages, "tdf_stages.rds");
       return("tdf_stages.rds")
     }, format = "file"),
-  tar_target(leaflet_stages, stages_leaflet(sf_tdf_stages))
+  tar_target(leaflet_stages, stages_leaflet(sf_tdf_stages, "edition"))
 )
