@@ -22,6 +22,9 @@ stages_mapped <- tar_map(
 
 list(
   stages_mapped,
+  tar_target(
+    broken_elevation,
+    c("https://cdn.cyclingstage.com/images/tour-de-france/2022/stage-9-gpxroute.gpx")),
   
   tar_combine(
     df_tdf_stages, stages_mapped[["df_track_points"]],
@@ -37,5 +40,6 @@ list(
       write_rds(sf_tdf_stages, "tdf_stages.rds");
       return("tdf_stages.rds")
     }, format = "file"),
-  tar_target(leaflet_stages, stages_leaflet(sf_tdf_stages, "edition"))
+  tar_target(leaflet_stages, stages_leaflet(sf_tdf_stages, "edition")),
+  tar_target(gg_profile, vis_profile(sf_tdf_stages, broken_elevation))
 )
