@@ -15,3 +15,4 @@ library(fs)
 library(sf)
 
 conflicts_prefer(dplyr::filter)
+conflicts_prefer(dplyr::lag)
