@@ -3,7 +3,7 @@ title: "Tour de France Route Analysis"
 description: |
   Plotting Tour de France stages onto a single map.
 author: "Julian During"
-date: "`r Sys.Date()`"
+date: "2024-09-24"
 output: distill::distill_article
 creative_commons: CC BY
 repository_url: https://github.com/duju211/tour_de_france_map
