@@ -1,7 +1,7 @@
 ---
 title: "Tour de France Route Analysis"
 description: |
-  Plotting Tour de France stages onto a single map.
+  Plotting Tour de France stages onto a single map
 author: "Julian During"
 date: "2024-09-24"
 output: distill::distill_article
