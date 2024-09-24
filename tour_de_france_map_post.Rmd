@@ -7,6 +7,9 @@ author:
     url: https://www.datannery.com/
 date: "`r Sys.Date()`"
 output: distill::distill_article
+creative_commons: CC BY
+repository_url: https://github.com/duju211/tour_de_france_map
+base_url: https://www.datannery.com/posts/tour_de_france_map/
 params:
   interactive: TRUE
 editor_options: 
