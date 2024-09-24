@@ -1,13 +1,22 @@
-track_points <- function(host, gpx_path) {
-  gpx_html <- nod(host, gpx_path) |>
-    scrape(content = "text/html; charset=iso-8859-1", verbose = TRUE)
+track_points <- function(base_url, df_gpx_paths, track_point_css) {
+  host <- bow(base_url)
   
-  track_points <- html_elements(gpx_html, "trkpt")
+  sessions <- map(pull(df_gpx_paths, gpx_path), \(x) nod(host, x))
   
-  tibble(
-    gpx_path = gpx_path,
-    lat = html_attr(track_points, "lat"),
-    lon = html_attr(track_points, "lon"),
-    elevation = html_text(track_points)) |>
+  gpx_html <- map(
+    sessions,
+    \(x) scrape(x, content = "text/html; charset=iso-8859-1", verbose = TRUE))
+  
+  track_points <- map(gpx_html, \(x) html_elements(x, track_point_css))
+  
+  list_track_points <- map(
+    track_points, \(x) tibble(
+      lat = html_attr(x, "lat"),
+      lon = html_attr(x, "lon"),
+      elevation = html_text(x)))
+  
+  df_track_points <- df_gpx_paths |>
+    mutate(df_track_points = list_track_points) |>
+    unnest(df_track_points) |>
     mutate(across(c(lat, lon, elevation), \(x) parse_number(x)))
 }
