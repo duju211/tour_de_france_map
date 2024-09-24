@@ -244,6 +244,10 @@ using ggplot techniques:
 
 ![](README_files/figure-markdown_strict/plot_tdf_stages-1.png)
 
+# Conclusion
+
+Bla
+
 Fischetti, Tony. 2023. *Assertr: Assertive Programming for r Analysis
 Pipelines*. [https://docs.ropensci.org/assertr/ (website)
 https://github.com/ropensci/assertr](https://docs.ropensci.org/assertr/ (website)

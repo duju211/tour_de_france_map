@@ -15,7 +15,7 @@ editor_options:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(eval = !params$interactive)
+knitr::opts_chunk$set(eval = !params$interactive, echo = TRUE)
 
 source("libraries.R")
 
@@ -176,4 +176,6 @@ if (params$interactive)
 gg_tdf_stages
 ```
 
+# Conclusion
 
+Bla
