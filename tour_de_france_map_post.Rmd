@@ -1,7 +1,7 @@
 ---
 title: "Tour de France Route Analysis"
 description: |
-  Plotting Tour de France stages onto a single.
+  Plotting Tour de France stages onto a single map.
 author:
   - name: Julian During
     url: https://www.datannery.com/
