@@ -1,0 +1,179 @@
+---
+title: "Tour de France Route Analysis"
+description: |
+  Plotting Tour de France stages onto a single.
+author:
+  - name: Julian During
+    url: https://www.datannery.com/
+date: "`r Sys.Date()`"
+output: distill::distill_article
+params:
+  interactive: TRUE
+editor_options: 
+  chunk_output_type: console
+bibliography: biblio.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = !params$interactive)
+
+source("libraries.R")
+
+df_manifest <- tar_manifest() |>
+  mutate(command = str_glue("{name} <- {command}"))
+```
+
+```{r, include=FALSE, code=df_manifest$command[df_manifest$name == "tdf_funs_files"]}
+```
+
+```{r, include=FALSE, eval=TRUE}
+if (params$interactive)
+  tar_load(tdf_funs_files)
+```
+
+
+# Idea
+
+Plot the routes of the last Tour de France editions onto a single map.
+
+# Reproducibility
+
+If you want to reproduce this post, you have to perform the following steps:
+
+# Data
+
+In this post the following libraries are used:
+
+```{r, file="libraries.R", eval=FALSE}
+```
+
+Website where the data is available from:
+
+```{r base_url, code=df_manifest$command[df_manifest$name == "base_url"]}
+```
+
+Define paths to editions:
+
+```{r editions, code=df_manifest$command[df_manifest$name == "editions"]}
+```
+
+In the following section, get all links to so called '.gpx' files. These
+file represent the geographic data of the routes from the different editions.
+To do this perform the following steps:
+
+* Introduce ourselves to the host to identify the rules defined in the
+'robots.txt' file (@cit_polite)
+* Scrape all html files resulting from the above mentioned editions. By using
+functions from the 'polite' package we automatically obey the rules defined
+from the host
+* Search for all html elements that represent links (@cit_rvest)
+* Further filter those links for elements with the text 'GPX' in them
+(excluding links that don't represent '.gpx' files) and extract the 'href'
+attribute
+* Put them into a final data frame and extract the year of the edition from
+the url (@cit_tidyverse)
+
+```{r fun_gpx_paths, file=tdf_funs_files[["R/gpx_paths.R"]]}
+```
+
+Define the CSS expression to identify relevant links. This expression was 
+determined using the developer tools of the browser:
+
+```{r links_css, code=df_manifest$command[df_manifest$name == "links_css"]}
+```
+
+Execute the above described function and make sure that every resulting path
+is unique (@cit_assertr):
+
+```{r df_gpx_paths, code=df_manifest$command[df_manifest$name == "df_gpx_paths"]}
+```
+
+```{r, include=FALSE, eval=TRUE}
+if (params$interactive)
+  tar_load(df_gpx_paths)
+```
+
+```{r, echo=FALSE, eval=TRUE}
+df_gpx_paths
+```
+
+Now all the links to the relevant files are available.
+
+The next step is to read in all the files and determine relevant elements from
+these files. To to this perform the following steps:
+
+* As in the previous function use 'polite' functions to scrape all the files
+* Search for elements that represent so called 'trackpoints'
+* Extract longitudinal information from these elements and put them in a
+data frame
+
+```{r, file=tdf_funs_files[["R/track_points.R"]]}
+```
+
+Before we call the function define the CSS that will select the right elements.
+Again this was determined using the SelectorGadget tool:
+
+```{r track_point_css, code=df_manifest$command[df_manifest$name == "track_point_css"]}
+```
+
+Insert the base url, the links to the gpx files and the mentioned CSS
+selector into the function and call it:
+
+```{r df_track_points, code=df_manifest$command[df_manifest$name == "df_track_points"]}
+```
+
+```{r, include=FALSE, eval=TRUE}
+if (params$interactive)
+  tar_load(df_track_points)
+```
+
+```{r, echo=FALSE, eval=TRUE}
+df_track_points
+```
+
+To ease the use of spatial data, turn the data frame into a 'sf'
+(@cit_sf) object:
+
+```{r, file=tdf_funs_files[["R/stages_sf.R"]]}
+```
+
+If we apply the function, we get an data frame with one row per stage and
+a geometry list column, that represents the spatial data of that stage:
+
+```{r sf_tdf_stages, code=df_manifest$command[df_manifest$name == "sf_tdf_stages"]}
+```
+
+```{r, eval=TRUE, include=FALSE}
+if (params$interactive)
+  tar_load(sf_tdf_stages)
+```
+
+```{r, eval=TRUE, echo=FALSE}
+sf_tdf_stages
+```
+
+Before we plot the data download the outlines of countries with the help of
+the 'rnaturalearth' (@cit_rnaturalearth) package.
+
+```{r world, code=df_manifest$command[df_manifest$name == "world"]}
+```
+
+Combine the stage data with the country outline data and plot the result using
+ggplot techniques:
+
+```{r, file="R/vis_tdf_stages.R"}
+```
+
+```{r, code=df_manifest$command[df_manifest$name == "gg_tdf_stages"]}
+```
+
+```{r, include=FALSE, eval=TRUE}
+if (params$interactive)
+  tar_load(gg_tdf_stages)
+```
+
+```{r, echo=FALSE, eval=TRUE}
+gg_tdf_stages
+```
+
+
