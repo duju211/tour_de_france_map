@@ -7,11 +7,11 @@ date: "`r Sys.Date()`"
 output: distill::distill_article
 creative_commons: CC BY
 repository_url: https://github.com/duju211/tour_de_france_map
+bibliography: biblio.bib
 params:
   interactive: TRUE
 editor_options: 
   chunk_output_type: console
-bibliography: biblio.bib
 ---
 
 ```{r setup, include=FALSE}
