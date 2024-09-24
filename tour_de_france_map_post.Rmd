@@ -165,7 +165,7 @@ ggplot techniques:
 ```{r, file="R/vis_tdf_stages.R"}
 ```
 
-```{r, code=df_manifest$command[df_manifest$name == "gg_tdf_stages"]}
+```{r gg_tdf_stages, code=df_manifest$command[df_manifest$name == "gg_tdf_stages"]}
 ```
 
 ```{r, include=FALSE, eval=TRUE}
@@ -173,7 +173,7 @@ if (params$interactive)
   tar_load(gg_tdf_stages)
 ```
 
-```{r, echo=FALSE, eval=TRUE, preview=TRUE}
+```{r plot_tdf_stages, echo=FALSE, eval=TRUE, preview=TRUE}
 gg_tdf_stages
 ```
 

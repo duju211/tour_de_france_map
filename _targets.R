@@ -27,5 +27,8 @@ list(
   tar_target(gg_profile, vis_profile(sf_tdf_stages, broken_elevation)),
   tar_target(gg_tdf_stages, vis_tdf_stages(sf_tdf_stages, world)),
   
-  tar_render(tour_de_france_map_post, "tour_de_france_map_post.Rmd")
+  tar_render(tour_de_france_map_post, "tour_de_france_map_post.Rmd"),
+  tar_render(
+    tour_de_france_map_readme, "tour_de_france_map_post.Rmd",
+    output_file = "README.md", output_format = "md_document")
 )
