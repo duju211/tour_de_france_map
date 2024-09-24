@@ -175,7 +175,7 @@ if (params$interactive)
   tar_load(gg_tdf_stages)
 ```
 
-```{r, echo=FALSE, eval=TRUE}
+```{r, echo=FALSE, eval=TRUE, preview=TRUE}
 gg_tdf_stages
 ```
 
