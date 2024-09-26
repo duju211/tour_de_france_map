@@ -6,7 +6,7 @@ author: "Julian During"
 date: "2024-09-24"
 output: distill::distill_article
 creative_commons: CC BY
-base_url: https://www.datannery.com/
+base_url: https://www.datannery.com/tour-de-france-route-analysis
 repository_url: https://github.com/duju211/tour_de_france_map
 bibliography: biblio.bib
 params:
