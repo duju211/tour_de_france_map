@@ -14,7 +14,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, eval=TRUE}
 knitr::opts_chunk$set(eval = !params$interactive, echo = TRUE)
 
 source("libraries.R")
