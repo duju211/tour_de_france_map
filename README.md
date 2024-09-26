@@ -7,6 +7,10 @@ Plot the routes of the last Tour de France editions onto a single map.
 If you want to reproduce this post, you have to perform the following
 steps:
 
+-   Clone the repository
+-   Run `renv::restore()`
+-   Run `targets::tar_make()`
+
 # Data
 
 In this post the following libraries are used:
