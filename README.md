@@ -33,7 +33,8 @@ In this post the following libraries are used:
     conflicts_prefer(dplyr::filter)
     conflicts_prefer(dplyr::lag)
 
-Website where the data is available from:
+Website (Lustig, Eppinga, and Fox (2018)) where the data is available
+from:
 
     base_url <- "https://www.cyclingstage.com/"
 
@@ -256,6 +257,9 @@ Fischetti, Tony. 2023. *Assertr: Assertive Programming for r Analysis
 Pipelines*. [https://docs.ropensci.org/assertr/ (website)
 https://github.com/ropensci/assertr](https://docs.ropensci.org/assertr/ (website)
 https://github.com/ropensci/assertr).
+
+Lustig, Harmen, Hendrik Eppinga, and Kevin Fox. 2018.
+“Cyclingstage.com.” 2018. <https://www.cyclingstage.com/>.
 
 Massicotte, Philippe, and Andy South. 2023. *Rnaturalearth: World Map
 Data from Natural Earth*. <https://docs.ropensci.org/rnaturalearth/>.

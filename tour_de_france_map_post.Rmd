@@ -53,7 +53,7 @@ In this post the following libraries are used:
 ```{r, file="libraries.R", eval=FALSE}
 ```
 
-Website where the data is available from:
+Website (@cit_online_cycling_stage) where the data is available from:
 
 ```{r base_url, code=df_manifest$command[df_manifest$name == "base_url"]}
 ```
