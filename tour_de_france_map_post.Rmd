@@ -71,7 +71,7 @@ To do this perform the following steps:
 'robots.txt' file (@cit_polite)
 * Scrape all html files resulting from the above mentioned editions. By using
 functions from the 'polite' package we automatically obey the rules defined
-from the host
+by the host
 * Search for all html elements that represent links (@cit_rvest)
 * Further filter those links for elements with the text 'GPX' in them
 (excluding links that don't represent '.gpx' files) and extract the 'href'

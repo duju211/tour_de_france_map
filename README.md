@@ -51,7 +51,7 @@ editions. To do this perform the following steps:
     ‘robots.txt’ file (Perepolkin (2023))
 -   Scrape all html files resulting from the above mentioned editions.
     By using functions from the ‘polite’ package we automatically obey
-    the rules defined from the host
+    the rules defined by the host
 -   Search for all html elements that represent links (Wickham (2024))
 -   Further filter those links for elements with the text ‘GPX’ in them
     (excluding links that don’t represent ‘.gpx’ files) and extract the
