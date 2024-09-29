@@ -9,6 +9,7 @@ output: distill::distill_article
 creative_commons: CC BY
 base_url: https://www.datannery.com/posts/tour-de-france-route-analysis
 repository_url: https://github.com/duju211/tour_de_france_map
+preview: https://github.com/duju211/tour_de_france_map/blob/9d7dd760a3998573975b348d81262d8998f8073c/README_files/figure-markdown_strict/plot_tdf_stages-1.png?raw=true
 bibliography: biblio.bib
 params:
   interactive: TRUE
@@ -183,7 +184,7 @@ if (params$interactive)
   tar_load(gg_tdf_stages)
 ```
 
-```{r plot_tdf_stages, echo=FALSE, eval=TRUE, preview=TRUE}
+```{r plot_tdf_stages, echo=FALSE, eval=TRUE}
 gg_tdf_stages
 ```
 
