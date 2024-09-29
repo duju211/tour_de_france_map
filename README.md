@@ -1,6 +1,8 @@
 # Idea
 
-Plot the routes of the last Tour de France editions onto a single map.
+Approximately in October the new route of the tour de France will be
+announced. In order to spark some excitement explore past editions a bit
+more, and plot all stages of past editions onto a single map.
 
 # Reproducibility
 
@@ -33,8 +35,8 @@ In this post the following libraries are used:
     conflicts_prefer(dplyr::filter)
     conflicts_prefer(dplyr::lag)
 
-Website (Lustig, Eppinga, and Fox (2018)) where the data is available
-from:
+Define the website (Lustig, Eppinga, and Fox (2018)) where the data is
+available from:
 
     base_url <- "https://www.cyclingstage.com/"
 
@@ -52,7 +54,8 @@ editions. To do this perform the following steps:
 -   Scrape all html files resulting from the above mentioned editions.
     By using functions from the ‘polite’ package we automatically obey
     the rules defined by the host
--   Search for all html elements that represent links (Wickham (2024))
+-   Search for all html elements that represent links with a
+    predetermined CSS selector (Wickham (2024))
 -   Further filter those links for elements with the text ‘GPX’ in them
     (excluding links that don’t represent ‘.gpx’ files) and extract the
     ‘href’ attribute
@@ -83,7 +86,9 @@ editions. To do this perform the following steps:
     }
 
 Define the CSS expression to identify relevant links. This expression
-was determined using the developer tools of the browser:
+was determined using techniques described in
+[this](https://rvest.tidyverse.org/articles/selectorgadget.html)
+vignette.
 
     links_css <- ".data a"
 
@@ -144,7 +149,9 @@ elements from these files. To to this perform the following steps:
     }
 
 Before we call the function define the CSS that will select the right
-elements. Again this was determined using the SelectorGadget tool:
+elements. Again this was determined using the SelectorGadget tool
+(described in detail
+[here](https://rvest.tidyverse.org/articles/selectorgadget.html)):
 
     track_point_css <- "trkpt"
 
@@ -251,7 +258,9 @@ using ggplot techniques:
 
 # Conclusion
 
-Bla
+We downloaded the spatial data of stages from multiple editions of the
+tour the France. By transforming the data into a `sf` object, we could
+use known techniques to analyze and visualise the data.
 
 Fischetti, Tony. 2023. *Assertr: Assertive Programming for r Analysis
 Pipelines*. [https://docs.ropensci.org/assertr/ (website)

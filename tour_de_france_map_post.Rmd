@@ -36,7 +36,9 @@ if (params$interactive)
 
 # Idea
 
-Plot the routes of the last Tour de France editions onto a single map.
+Approximately in October the new route of the tour de France will be announced.
+In order to spark some excitement explore past editions a bit more, and plot all
+stages of past editions onto a single map.
 
 # Reproducibility
 
@@ -53,7 +55,7 @@ In this post the following libraries are used:
 ```{r, file="libraries.R", eval=FALSE}
 ```
 
-Website (@cit_online_cycling_stage) where the data is available from:
+Define the website (@cit_online_cycling_stage) where the data is available from:
 
 ```{r base_url, code=df_manifest$command[df_manifest$name == "base_url"]}
 ```
@@ -72,7 +74,8 @@ To do this perform the following steps:
 * Scrape all html files resulting from the above mentioned editions. By using
 functions from the 'polite' package we automatically obey the rules defined
 by the host
-* Search for all html elements that represent links (@cit_rvest)
+* Search for all html elements that represent links with a predetermined
+CSS selector (@cit_rvest)
 * Further filter those links for elements with the text 'GPX' in them
 (excluding links that don't represent '.gpx' files) and extract the 'href'
 attribute
@@ -83,7 +86,8 @@ the url (@cit_tidyverse)
 ```
 
 Define the CSS expression to identify relevant links. This expression was 
-determined using the developer tools of the browser:
+determined using techniques described in [this](https://rvest.tidyverse.org/articles/selectorgadget.html)
+vignette.
 
 ```{r links_css, code=df_manifest$command[df_manifest$name == "links_css"]}
 ```
@@ -117,7 +121,8 @@ data frame
 ```
 
 Before we call the function define the CSS that will select the right elements.
-Again this was determined using the SelectorGadget tool:
+Again this was determined using the SelectorGadget tool (described in detail
+[here](https://rvest.tidyverse.org/articles/selectorgadget.html)):
 
 ```{r track_point_css, code=df_manifest$command[df_manifest$name == "track_point_css"]}
 ```
@@ -184,4 +189,6 @@ gg_tdf_stages
 
 # Conclusion
 
-Bla
+We downloaded the spatial data of stages from multiple editions of the tour the
+France. By transforming the data into a `sf` object, we could use known
+techniques to analyze and visualise the data.
