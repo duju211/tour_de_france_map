@@ -115,7 +115,7 @@ path is unique (Fischetti (2023)):
 Now all the links to the relevant files are available.
 
 The next step is to read in all the files and determine relevant
-elements from these files. To to this perform the following steps:
+elements from these files. To do this perform the following steps:
 
 -   As in the previous function use ‘polite’ functions to scrape all the
     files
