@@ -2459,7 +2459,7 @@ stages of past editions onto a single map.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class="va">editions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">&quot;tour-de-france-2022-gpx&quot;</span>, <span class="st">&quot;tour-de-france-2023-gpx&quot;</span>, </span>
-<span>     <span class="st">&quot;tour-de-france-2024-gpx&quot;</span>, <span class="st">&quot;tour-de-france-2025-route&quot;</span><span class="op">)</span></span></code></pre>
+<span>     <span class="st">&quot;tour-de-france-2024-gpx&quot;</span><span class="op">)</span></span></code></pre>
 </div>
 </div>
 <p>In the following section, get all links to so called ‘.gpx’ files. These
@@ -2495,11 +2495,15 @@ the url (<span class="citation" data-cites="cit_tidyverse">Wickham et al. (<a hr
 <span>  <span class="va">gpx_paths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span></span>
 <span>    <span class="va">link_nodes</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_attr.html">html_attr</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text2</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">==</span> <span class="st">&quot;GPX&quot;</span><span class="op">]</span>, <span class="st">&quot;href&quot;</span><span class="op">)</span><span class="op">)</span></span>
 <span>  </span>
-<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>url <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span><span class="op">(</span><span class="va">sessions</span>, <span class="st">&quot;url&quot;</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="va">tables</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">overview</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table</a></span><span class="op">(</span><span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">&quot;.data&quot;</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">tables</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>      gpx_path <span class="op">=</span> <span class="va">gpx_paths</span>, edition <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">&quot;\\d+&quot;</span><span class="op">)</span>,</span>
-<span>      .keep <span class="op">=</span> <span class="st">&quot;none&quot;</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">gpx_path</span><span class="op">)</span></span>
+<span>      gpx_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="va">gpx_paths</span><span class="op">)</span>,</span>
+<span>      edition <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">gpx_path</span>, <span class="st">&quot;\\d\\d\\d\\d&quot;</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">gpx</span>, <span class="va">x1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre>
 </div>
 </div>
@@ -2519,19 +2523,19 @@ is unique (<span class="citation" data-cites="cit_assertr">Fischetti (<a href="#
 </div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code># A tibble: 63 × 2
-   gpx_path                                                    edition
-   &lt;chr&gt;                                                       &lt;chr&gt;  
- 1 https://cdn.cyclingstage.com/images/tour-de-france/2022/st… 2022   
- 2 https://cdn.cyclingstage.com/images/tour-de-france/2022/st… 2022   
- 3 https://cdn.cyclingstage.com/images/tour-de-france/2022/st… 2022   
- 4 https://cdn.cyclingstage.com/images/tour-de-france/2022/st… 2022   
- 5 https://cdn.cyclingstage.com/images/tour-de-france/2022/st… 2022   
- 6 https://cdn.cyclingstage.com/images/tour-de-france/2022/st… 2022   
- 7 https://cdn.cyclingstage.com/images/tour-de-france/2022/st… 2022   
- 8 https://cdn.cyclingstage.com/images/tour-de-france/2022/st… 2022   
- 9 https://cdn.cyclingstage.com/images/tour-de-france/2022/st… 2022   
-10 https://cdn.cyclingstage.com/images/tour-de-france/2022/st… 2022   
+<pre><code># A tibble: 63 × 5
+   start_finish                              km type  gpx_path edition
+   &lt;chr&gt;                                  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;  
+ 1 Copenhagen – Copenhagen                 13.2 ITT   https:/… 2022   
+ 2 Roskilde – Nyborg                      202.  flat  https:/… 2022   
+ 3 Vejle – SÃ¸nderborg                    182   flat  https:/… 2022   
+ 4 Dunkirk – Calais                       172.  hills https:/… 2022   
+ 5 Lille – Arenberg                       154.  cobb… https:/… 2022   
+ 6 Binche – Longwy                        220.  hills https:/… 2022   
+ 7 Tomblaine – La Planche des Belles Fil… 176.  moun… https:/… 2022   
+ 8 Dole – Lausanne                        186.  hills https:/… 2022   
+ 9 Aigle – ChÃ¢tel                        193.  moun… https:/… 2022   
+10 Morzine – MegÃ¨ve                      148.  hills https:/… 2022   
 # ℹ 53 more rows</code></pre>
 </div>
 <p>Now all the links to the relevant files are available.</p>
@@ -2585,19 +2589,19 @@ selector into the function and call it:</p>
 </div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code># A tibble: 704,224 × 5
-   gpx_path                              edition   lat   lon elevation
-   &lt;chr&gt;                                 &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
- 1 https://cdn.cyclingstage.com/images/… 2022     55.7  12.6         7
- 2 https://cdn.cyclingstage.com/images/… 2022     55.7  12.6         7
- 3 https://cdn.cyclingstage.com/images/… 2022     55.7  12.6         7
- 4 https://cdn.cyclingstage.com/images/… 2022     55.7  12.6         7
- 5 https://cdn.cyclingstage.com/images/… 2022     55.7  12.6         7
- 6 https://cdn.cyclingstage.com/images/… 2022     55.7  12.6         7
- 7 https://cdn.cyclingstage.com/images/… 2022     55.7  12.6         7
- 8 https://cdn.cyclingstage.com/images/… 2022     55.7  12.6         7
- 9 https://cdn.cyclingstage.com/images/… 2022     55.7  12.6         7
-10 https://cdn.cyclingstage.com/images/… 2022     55.7  12.6         7
+<pre><code># A tibble: 704,224 × 8
+   start_finish        km type  gpx_path edition   lat   lon elevation
+   &lt;chr&gt;            &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Copenhagen – Co…  13.2 ITT   https:/… 2022     55.7  12.6         7
+ 2 Copenhagen – Co…  13.2 ITT   https:/… 2022     55.7  12.6         7
+ 3 Copenhagen – Co…  13.2 ITT   https:/… 2022     55.7  12.6         7
+ 4 Copenhagen – Co…  13.2 ITT   https:/… 2022     55.7  12.6         7
+ 5 Copenhagen – Co…  13.2 ITT   https:/… 2022     55.7  12.6         7
+ 6 Copenhagen – Co…  13.2 ITT   https:/… 2022     55.7  12.6         7
+ 7 Copenhagen – Co…  13.2 ITT   https:/… 2022     55.7  12.6         7
+ 8 Copenhagen – Co…  13.2 ITT   https:/… 2022     55.7  12.6         7
+ 9 Copenhagen – Co…  13.2 ITT   https:/… 2022     55.7  12.6         7
+10 Copenhagen – Co…  13.2 ITT   https:/… 2022     55.7  12.6         7
 # ℹ 704,214 more rows</code></pre>
 </div>
 <p>To ease the use of spatial data, turn the data frame into a ‘sf’

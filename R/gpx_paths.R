@@ -12,9 +12,13 @@ gpx_paths <- function(base_url, editions, links_css) {
   gpx_paths <- map(
     link_nodes, \(x) html_attr(x[html_text2(x) == "GPX"], "href"))
   
-  tibble(url = map_chr(sessions, "url")) |>
+  tables <- map(overview, \(x) html_table(html_element(x, ".data")))
+  
+  tables |>
+    bind_rows() |>
+    clean_names() |>
     mutate(
-      gpx_path = gpx_paths, edition = str_extract(url, "\\d+"),
-      .keep = "none") |>
-    unnest(gpx_path)
+      gpx_path = unlist(gpx_paths),
+      edition = str_extract(gpx_path, "\\d\\d\\d\\d")) |>
+    select(-c(gpx, x1))
 }

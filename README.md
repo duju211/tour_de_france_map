@@ -43,7 +43,7 @@ available from:
 Define paths to editions:
 
     editions <- c("tour-de-france-2022-gpx", "tour-de-france-2023-gpx", 
-         "tour-de-france-2024-gpx", "tour-de-france-2025-route")
+         "tour-de-france-2024-gpx")
 
 In the following section, get all links to so called ‘.gpx’ files. These
 file represent the geographic data of the routes from the different
@@ -78,11 +78,15 @@ editions. To do this perform the following steps:
       gpx_paths <- map(
         link_nodes, \(x) html_attr(x[html_text2(x) == "GPX"], "href"))
       
-      tibble(url = map_chr(sessions, "url")) |>
+      tables <- map(overview, \(x) html_table(html_element(x, ".data")))
+      
+      tables |>
+        bind_rows() |>
+        clean_names() |>
         mutate(
-          gpx_path = gpx_paths, edition = str_extract(url, "\\d+"),
-          .keep = "none") |>
-        unnest(gpx_path)
+          gpx_path = unlist(gpx_paths),
+          edition = str_extract(gpx_path, "\\d\\d\\d\\d")) |>
+        select(-c(gpx, x1))
     }
 
 Define the CSS expression to identify relevant links. This expression
@@ -97,19 +101,19 @@ path is unique (Fischetti (2023)):
 
     df_gpx_paths <- verify(gpx_paths(base_url, editions, links_css), is_uniq(gpx_path))
 
-    ## # A tibble: 63 × 2
-    ##    gpx_path                                                              edition
-    ##    <chr>                                                                 <chr>  
-    ##  1 https://cdn.cyclingstage.com/images/tour-de-france/2022/stage-1-parc… 2022   
-    ##  2 https://cdn.cyclingstage.com/images/tour-de-france/2022/stage-2-parc… 2022   
-    ##  3 https://cdn.cyclingstage.com/images/tour-de-france/2022/stage-3-parc… 2022   
-    ##  4 https://cdn.cyclingstage.com/images/tour-de-france/2022/stage-4-parc… 2022   
-    ##  5 https://cdn.cyclingstage.com/images/tour-de-france/2022/stage-5-parc… 2022   
-    ##  6 https://cdn.cyclingstage.com/images/tour-de-france/2022/stage-6-parc… 2022   
-    ##  7 https://cdn.cyclingstage.com/images/tour-de-france/2022/stage-7-parc… 2022   
-    ##  8 https://cdn.cyclingstage.com/images/tour-de-france/2022/stage-8-parc… 2022   
-    ##  9 https://cdn.cyclingstage.com/images/tour-de-france/2022/stage-9-gpxr… 2022   
-    ## 10 https://cdn.cyclingstage.com/images/tour-de-france/2022/stage-10-par… 2022   
+    ## # A tibble: 63 × 5
+    ##    start_finish                                km type      gpx_path     edition
+    ##    <chr>                                    <dbl> <chr>     <chr>        <chr>  
+    ##  1 Copenhagen – Copenhagen                   13.2 ITT       https://cdn… 2022   
+    ##  2 Roskilde – Nyborg                        202.  flat      https://cdn… 2022   
+    ##  3 Vejle – SÃ¸nderborg                      182   flat      https://cdn… 2022   
+    ##  4 Dunkirk – Calais                         172.  hills     https://cdn… 2022   
+    ##  5 Lille – Arenberg                         154.  cobbles   https://cdn… 2022   
+    ##  6 Binche – Longwy                          220.  hills     https://cdn… 2022   
+    ##  7 Tomblaine – La Planche des Belles Filles 176.  mountains https://cdn… 2022   
+    ##  8 Dole – Lausanne                          186.  hills     https://cdn… 2022   
+    ##  9 Aigle – ChÃ¢tel                          193.  mountains https://cdn… 2022   
+    ## 10 Morzine – MegÃ¨ve                        148.  hills     https://cdn… 2022   
     ## # ℹ 53 more rows
 
 Now all the links to the relevant files are available.
@@ -160,19 +164,19 @@ selector into the function and call it:
 
     df_track_points <- track_points(base_url, df_gpx_paths, track_point_css)
 
-    ## # A tibble: 704,224 × 5
-    ##    gpx_path                                        edition   lat   lon elevation
-    ##    <chr>                                           <chr>   <dbl> <dbl>     <dbl>
-    ##  1 https://cdn.cyclingstage.com/images/tour-de-fr… 2022     55.7  12.6         7
-    ##  2 https://cdn.cyclingstage.com/images/tour-de-fr… 2022     55.7  12.6         7
-    ##  3 https://cdn.cyclingstage.com/images/tour-de-fr… 2022     55.7  12.6         7
-    ##  4 https://cdn.cyclingstage.com/images/tour-de-fr… 2022     55.7  12.6         7
-    ##  5 https://cdn.cyclingstage.com/images/tour-de-fr… 2022     55.7  12.6         7
-    ##  6 https://cdn.cyclingstage.com/images/tour-de-fr… 2022     55.7  12.6         7
-    ##  7 https://cdn.cyclingstage.com/images/tour-de-fr… 2022     55.7  12.6         7
-    ##  8 https://cdn.cyclingstage.com/images/tour-de-fr… 2022     55.7  12.6         7
-    ##  9 https://cdn.cyclingstage.com/images/tour-de-fr… 2022     55.7  12.6         7
-    ## 10 https://cdn.cyclingstage.com/images/tour-de-fr… 2022     55.7  12.6         7
+    ## # A tibble: 704,224 × 8
+    ##    start_finish               km type  gpx_path    edition   lat   lon elevation
+    ##    <chr>                   <dbl> <chr> <chr>       <chr>   <dbl> <dbl>     <dbl>
+    ##  1 Copenhagen – Copenhagen  13.2 ITT   https://cd… 2022     55.7  12.6         7
+    ##  2 Copenhagen – Copenhagen  13.2 ITT   https://cd… 2022     55.7  12.6         7
+    ##  3 Copenhagen – Copenhagen  13.2 ITT   https://cd… 2022     55.7  12.6         7
+    ##  4 Copenhagen – Copenhagen  13.2 ITT   https://cd… 2022     55.7  12.6         7
+    ##  5 Copenhagen – Copenhagen  13.2 ITT   https://cd… 2022     55.7  12.6         7
+    ##  6 Copenhagen – Copenhagen  13.2 ITT   https://cd… 2022     55.7  12.6         7
+    ##  7 Copenhagen – Copenhagen  13.2 ITT   https://cd… 2022     55.7  12.6         7
+    ##  8 Copenhagen – Copenhagen  13.2 ITT   https://cd… 2022     55.7  12.6         7
+    ##  9 Copenhagen – Copenhagen  13.2 ITT   https://cd… 2022     55.7  12.6         7
+    ## 10 Copenhagen – Copenhagen  13.2 ITT   https://cd… 2022     55.7  12.6         7
     ## # ℹ 704,214 more rows
 
 To ease the use of spatial data, turn the data frame into a ‘sf’

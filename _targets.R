@@ -10,7 +10,7 @@ list(
   tar_target(
     editions, c(
       "tour-de-france-2022-gpx", "tour-de-france-2023-gpx",
-      "tour-de-france-2024-gpx", "tour-de-france-2025-route")),
+      "tour-de-france-2024-gpx")),
   tar_files(tdf_funs, dir_ls("R")),
   tar_target(links_css, ".data a"),
   tar_target(track_point_css, "trkpt"),
