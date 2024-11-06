@@ -19,8 +19,9 @@ list(
   tar_target(
     df_gpx_paths,
     verify(gpx_paths(base_url, editions, links_css), is_uniq(gpx_path))),
+  tar_target(gpx_path_stages, pull(df_gpx_paths, gpx_path)),
   tar_target(
-    df_track_points, track_points(base_url, df_gpx_paths, track_point_css)),
+    df_track_points, track_points(base_url, gpx_path_stages, track_point_css)),
   # tar_target(tbl_tdf_overview, tdf_overview_tbl(sf_tdf_stages)),
   tar_target(sf_tdf_stages, stages_sf(df_track_points)),
   # tar_target(leaflet_stages, stages_leaflet(sf_tdf_stages, "edition")),

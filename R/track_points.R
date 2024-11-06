@@ -1,7 +1,7 @@
-track_points <- function(base_url, df_gpx_paths, track_point_css) {
+track_points <- function(base_url, gpx_path_stages, track_point_css) {
   host <- bow(base_url)
   
-  sessions <- map(pull(df_gpx_paths, gpx_path), \(x) nod(host, x))
+  sessions <- map(gpx_path_stages, \(x) nod(host, x))
   
   gpx_html <- map(
     sessions,
@@ -15,8 +15,8 @@ track_points <- function(base_url, df_gpx_paths, track_point_css) {
       lon = html_attr(x, "lon"),
       elevation = html_text(x)))
   
-  df_track_points <- df_gpx_paths |>
-    mutate(df_track_points = list_track_points) |>
-    unnest(df_track_points) |>
+  df_track_points <- list_track_points |>
+    set_names(gpx_path_stages) |>
+    bind_rows(.id = "gpx_path") |>
     mutate(across(c(lat, lon, elevation), \(x) parse_number(x)))
 }
