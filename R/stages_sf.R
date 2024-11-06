@@ -1,10 +1,10 @@
-stages_sf <- function(df_track_points) {
+stages_sf <- function(df_overview, df_track_points) {
   sf_points <- df_track_points |>
     filter(!is.na(elevation)) |>
     st_as_sf(coords = c("lon", "lat"), crs = st_crs(4326))
   
   sf_multipoints <- sf_points |>
-    group_by(gpx_path, edition) |>
+    group_by(gpx_path) |>
     mutate(
       distance_delta = as.numeric(st_distance(
         geometry, lag(geometry), by_element = TRUE))) |>
@@ -16,5 +16,6 @@ stages_sf <- function(df_track_points) {
       elev_profile = list(tibble(distance = distance, elevation = elevation)),
       .groups = "drop")
   
-  st_cast(sf_multipoints, "LINESTRING")
+  st_cast(sf_multipoints, "LINESTRING") |>
+    left_join(df_overview, by = join_by(gpx_path), relationship = "one-to-one")
 }

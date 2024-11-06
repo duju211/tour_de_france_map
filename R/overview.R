@@ -1,4 +1,4 @@
-gpx_paths <- function(base_url, editions, links_css) {
+overview <- function(base_url, editions, links_css) {
   host <- bow(base_url)
   
   sessions <- map(editions, \(x) nod(host, x))

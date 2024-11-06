@@ -17,13 +17,13 @@ list(
   tar_target(world, ne_countries(scale = "medium", returnclass = "sf")),
   
   tar_target(
-    df_gpx_paths,
-    verify(gpx_paths(base_url, editions, links_css), is_uniq(gpx_path))),
-  tar_target(gpx_path_stages, pull(df_gpx_paths, gpx_path)),
+    df_overview,
+    verify(overview(base_url, editions, links_css), is_uniq(gpx_path))),
+  tar_target(gpx_path_stages, pull(df_overview, gpx_path)),
   tar_target(
     df_track_points, track_points(base_url, gpx_path_stages, track_point_css)),
   # tar_target(tbl_tdf_overview, tdf_overview_tbl(sf_tdf_stages)),
-  tar_target(sf_tdf_stages, stages_sf(df_track_points)),
+  tar_target(sf_tdf_stages, stages_sf(df_overview, df_track_points)),
   # tar_target(leaflet_stages, stages_leaflet(sf_tdf_stages, "edition")),
   tar_target(gg_profile, vis_profile(sf_tdf_stages, broken_elevation)),
   tar_target(gg_tdf_stages, vis_tdf_stages(sf_tdf_stages, world)),
