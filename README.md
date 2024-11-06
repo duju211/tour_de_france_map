@@ -97,7 +97,7 @@ path is unique (Fischetti (2023)):
 
     df_gpx_paths <- verify(gpx_paths(base_url, editions, links_css), is_uniq(gpx_path))
 
-    ## # A tibble: 66 × 2
+    ## # A tibble: 63 × 2
     ##    gpx_path                                                              edition
     ##    <chr>                                                                 <chr>  
     ##  1 https://cdn.cyclingstage.com/images/tour-de-france/2022/stage-1-parc… 2022   
@@ -110,7 +110,7 @@ path is unique (Fischetti (2023)):
     ##  8 https://cdn.cyclingstage.com/images/tour-de-france/2022/stage-8-parc… 2022   
     ##  9 https://cdn.cyclingstage.com/images/tour-de-france/2022/stage-9-gpxr… 2022   
     ## 10 https://cdn.cyclingstage.com/images/tour-de-france/2022/stage-10-par… 2022   
-    ## # ℹ 56 more rows
+    ## # ℹ 53 more rows
 
 Now all the links to the relevant files are available.
 
@@ -160,7 +160,7 @@ selector into the function and call it:
 
     df_track_points <- track_points(base_url, df_gpx_paths, track_point_css)
 
-    ## # A tibble: 737,011 × 5
+    ## # A tibble: 704,224 × 5
     ##    gpx_path                                        edition   lat   lon elevation
     ##    <chr>                                           <chr>   <dbl> <dbl>     <dbl>
     ##  1 https://cdn.cyclingstage.com/images/tour-de-fr… 2022     55.7  12.6         7
@@ -173,7 +173,7 @@ selector into the function and call it:
     ##  8 https://cdn.cyclingstage.com/images/tour-de-fr… 2022     55.7  12.6         7
     ##  9 https://cdn.cyclingstage.com/images/tour-de-fr… 2022     55.7  12.6         7
     ## 10 https://cdn.cyclingstage.com/images/tour-de-fr… 2022     55.7  12.6         7
-    ## # ℹ 737,001 more rows
+    ## # ℹ 704,214 more rows
 
 To ease the use of spatial data, turn the data frame into a ‘sf’
 (Pebesma (2018)) object:
@@ -205,12 +205,12 @@ stage:
 
     sf_tdf_stages <- stages_sf(df_track_points)
 
-    ## Simple feature collection with 66 features and 3 fields
+    ## Simple feature collection with 63 features and 3 fields
     ## Geometry type: LINESTRING
     ## Dimension:     XY
     ## Bounding box:  xmin: -3.01601 ymin: 42.72618 xmax: 12.6 ymax: 55.85376
     ## Geodetic CRS:  WGS 84
-    ## # A tibble: 66 × 4
+    ## # A tibble: 63 × 4
     ##    gpx_path                       edition elev_profile                  geometry
     ##    <chr>                          <chr>   <list>                <LINESTRING [°]>
     ##  1 https://cdn.cyclingstage.com/… 2022    <tibble>     (12.56353 55.6796, 12.56…
@@ -223,7 +223,7 @@ stage:
     ##  8 https://cdn.cyclingstage.com/… 2022    <tibble>     (2.3313 43.18762, 2.3312…
     ##  9 https://cdn.cyclingstage.com/… 2022    <tibble>     (0.69061 43.09445, 0.690…
     ## 10 https://cdn.cyclingstage.com/… 2022    <tibble>     (-0.04125 43.07966, -0.0…
-    ## # ℹ 56 more rows
+    ## # ℹ 53 more rows
 
 Before we plot the data download the outlines of countries with the help
 of the ‘rnaturalearth’ (Massicotte and South (2023)) package.
